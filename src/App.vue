@@ -65,6 +65,28 @@
     <!-- v-text v-html 会覆盖插值表达式{{}} -->
     <div v-text="str">没有被v-text覆盖</div>
     <div v-html="htm">{{msg}}</div>
+
+    <!-- v-show v-if -->
+    <div v-show="isShow">显示</div>
+    <div v-if="isShow">请让我隐藏</div>
+    <div v-else>
+      我还在吗
+    </div>
+    <hr class="mb-20">
+    <!-- 面板折叠 -->
+    <div class="panel-box">
+      <h3>案例： 折叠面板</h3>
+      <div class="wrapper">
+      <div class="title">芙蓉楼送辛渐<span @click="toggleContent">{{textIsShow?'收起':'折叠'}}</span></div>
+      <div class="content" v-show="textIsShow">
+        <p>寒雨连江夜入吴,</p>
+        <p>平明送客楚山孤。</p>
+        <p>洛阳亲友如相问，</p>
+        <p>一片冰心在玉壶。</p>
+      </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -87,7 +109,9 @@ export default {
       motto:'',
       intro:'',
       str: '覆盖了标签写的内容',
-      htm: '<i>这是一个图标元素</i><span>覆盖了插值表达式中的内容</span>'
+      htm: '<i>这是一个图标元素</i><span>覆盖了插值表达式中的内容</span>',
+      isShow: true,
+      textIsShow: true,
     };
   },
   methods: {
@@ -120,12 +144,15 @@ export default {
     },
     reverse(){
       this.msg = this.msg.split('').reverse().join('')
+    },
+    toggleContent(){
+      this.textIsShow = !this.textIsShow
     }
   },
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   form{
     border: 1px solid #ccc;
     padding: 20px;
@@ -136,4 +163,51 @@ export default {
   .mb-20{
     margin-bottom: 20px;
   }
+  .panel-box {
+    background-color: #fff;
+    width: 400px;
+    margin: 50px auto 100px;
+    padding: 20px 0;
+    border: 5px solid blueviolet;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #333;
+  h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .wrapper {
+    margin: 20px auto 0;
+    width: 300px;
+    
+    .title {
+         display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+      border: 1px solid #ccc;
+      padding: 0 15px;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 40px;
+      span {
+  
+font-size: 14px;
+    font-weight: normal;
+    padding: 0 8px;
+    margin-right: -8px;
+    cursor: pointer;
+      }
+    }
+
+    .content {
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      border-top-width: 0;
+      p {
+        font-size: 14px;
+        margin: 2px 0;
+      }
+    }
+  }
+}
 </style>>
