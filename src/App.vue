@@ -61,6 +61,10 @@
       <span>自我介绍</span>
       <input type="text" v-model.lazy="intro">
     </div>
+
+    <!-- v-text v-html 会覆盖插值表达式{{}} -->
+    <div v-text="str">没有被v-text覆盖</div>
+    <div v-html="htm">{{msg}}</div>
   </div>
 </template>
 
@@ -81,7 +85,9 @@ export default {
       info:'',
       age: 18,
       motto:'',
-      intro:''
+      intro:'',
+      str: '覆盖了标签写的内容',
+      htm: '<i>这是一个图标元素</i><span>覆盖了插值表达式中的内容</span>'
     };
   },
   methods: {
