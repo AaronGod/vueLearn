@@ -47,6 +47,20 @@
       <textarea name="info" v-model="info" placeholder="一句简单的自我介绍"></textarea>
     </div>
     </form>
+
+    <!-- v-modle的修饰符 .number .trim .lazy-->
+    <div class="mb-20">
+      <span>年龄</span>
+      <input type="number" name="age" v-model.number="age">
+    </div>
+    <div class="mb-20">
+      <span>人生格言</span>
+      <input type="text" v-model.trim="motto">
+    </div>
+    <div class="mb-20">
+      <span>自我介绍</span>
+      <input type="text" v-model.lazy="intro">
+    </div>
   </div>
 </template>
 
@@ -64,7 +78,10 @@ export default {
       from:'北京市',
       habit:[],
       grender:'女',
-      info:''
+      info:'',
+      age: 18,
+      motto:'',
+      intro:''
     };
   },
   methods: {
