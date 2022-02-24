@@ -19,6 +19,34 @@
     <!-- 翻转 -->
     <p>{{msg}}</p>
     <button @click="reverse">翻转</button>
+    <hr>
+    <!-- 表单数据关联  v-model -->
+    <form class="form">
+
+    <div class="mb-20">
+      <span>来自</span>
+      <select name="from" v-model="from">
+        <option value="北京市">北京</option>
+        <option value="南京市">南京</option>
+        <option value="天津市">天津</option>
+      </select>
+    </div>
+    <div class="mb-20">
+      <span>爱好</span>
+      <input type="checkbox" v-model="habit" value="抽烟">抽烟
+      <input type="checkbox" v-model="habit" value="喝酒">喝酒
+      <input type="checkbox" v-model="habit" value="唱歌">唱歌
+    </div>
+    <div class="mb-20">
+      <span>性别</span>
+      <input type="radio" v-model="grender" name="sex" value="男" id="">男
+      <input type="radio" v-model="grender" name="sex" id="" value="女">女
+    </div>
+    <div class="mb-20">
+      <span>自我介绍</span>
+      <textarea name="info" v-model="info" placeholder="一句简单的自我介绍"></textarea>
+    </div>
+    </form>
   </div>
 </template>
 
@@ -33,6 +61,10 @@ export default {
         age: 3,
       },
       url: "https://www.baidu.com",
+      from:'北京市',
+      habit:[],
+      grender:'女',
+      info:''
     };
   },
   methods: {
@@ -70,5 +102,15 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style scoped>
+  form{
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 200px;
+    margin: 50px auto;
+    box-shadow: 0 1px 5px #010;
+  }
+  .mb-20{
+    margin-bottom: 20px;
+  }
+</style>>
