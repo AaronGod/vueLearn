@@ -110,10 +110,18 @@
     </div>
     <p>序号</p>
     <div v-for="i in count" :key="i">{{ i }}</div>
+    <Gohead />
+    <hr>
+    <ListDel />
+<hr>
+    <BuyCard />
   </div>
 </template>
 
 <script>
+import Gohead from './components/Gohead.vue'
+import ListDel from './components/ListDel.vue'
+import BuyCard from './components/BuyCard.vue'
 export default {
   data() {
     return {
@@ -158,6 +166,7 @@ export default {
       count: 10,
     };
   },
+  components:{Gohead,ListDel, BuyCard},
   methods: {
     clickT(e) {
       console.log(e.target);
