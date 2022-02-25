@@ -1,0 +1,97 @@
+<template>
+  <div class="table-container">
+    <h2 class="text-center pt-3 mb-3">品牌管理</h2>
+    <table class="table table-bordered table-hover">
+      <tbody>
+        <tr>
+          <th>编号</th>
+          <th>资产变更</th>
+          <th>价格</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+        <tr v-for="obj in list" :key="obj.id">
+          <td>{{ obj.id }}</td>
+          <td>{{ obj.name }}</td>
+          <td :class="{ 'text-danger': obj.price > 100 }">{{ obj.price }}</td>
+          <td>{{ obj.time }}</td>
+          <td class="del" @click="del(obj.id)">删除</td>
+        </tr>
+      </tbody>
+    </table>
+    <form action="" class="form-inline d-flex">
+        <div>
+          <input
+            type="text"
+            name="goodsname"
+            v-model="name"
+            placeholder="资产名称"
+            class="form-contorl"
+          />
+        </div>
+        <div class="mx-3">
+          <input
+            type="number"
+            name="goodsprice"
+            v-model.number="price"
+            placeholder="价格"
+            class="form-contorl"
+          />
+        </div>
+
+      <button @click.prevent="addGoods" class="btn btn-primary">
+        添加资产
+      </button>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "BrandManage",
+  data() {
+    return {
+      list: [
+        { id: 100, name: "外套", price: 199, time: new Date("2010-08-12") },
+        { id: 101, name: "裤子", price: 34, time: new Date("2013-09-01") },
+        { id: 102, name: "鞋", price: 25.4, time: new Date("2018-11-22") },
+        { id: 103, name: "头发", price: 19900, time: new Date("2020-12-12") },
+      ],
+      name: "",
+      price: 0,
+    };
+  },
+  methods: {
+    addGoods(){
+      if(!this.price || !this.name.trim()){
+        alert('输入的数据为空，重新输入')
+        return
+      }
+      this.list.push({
+        id: this.list.length? this.list[this.list.length-1].id + 1:1,
+        name: this.name,
+        price:this.price,
+        time: new Date().toLocaleString()
+      })
+      
+      
+    },
+    del(id){
+      const index = this.list.findIndex(item=>item.id===id)
+      this.list.splice(index,1)
+    }
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.table-container {
+  width: 900px;
+  padding: 0 50px 20px;
+  margin: 50px auto;
+  box-shadow: 0 1px 8px blueviolet;
+  .del {
+    cursor: pointer;
+  }
+}
+</style>>
