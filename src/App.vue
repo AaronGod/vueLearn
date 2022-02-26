@@ -3,18 +3,20 @@
    
    <BrandManage />
    <hr>
-<CheckBox />
+  <CheckBox />
+  <BuyBooks />
   </div>
 </template>
 
 <script>
 import BrandManage from './components/BrandManage.vue'
 import CheckBox from './components/CheckBox.vue'
+import BuyBooks from './components/BuyBooks.vue'
 
 export default {
   name: 'App',
   components: {
-   BrandManage, CheckBox
+   BrandManage, CheckBox, BuyBooks
   }
 }
 </script>
