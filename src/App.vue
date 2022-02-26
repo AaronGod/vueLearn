@@ -5,6 +5,7 @@
    <hr>
   <CheckBox />
   <BuyBooks />
+  <LoveSum />
   </div>
 </template>
 
@@ -12,11 +13,12 @@
 import BrandManage from './components/BrandManage.vue'
 import CheckBox from './components/CheckBox.vue'
 import BuyBooks from './components/BuyBooks.vue'
+import LoveSum from './components/LoveSum.vue'
 
 export default {
   name: 'App',
   components: {
-   BrandManage, CheckBox, BuyBooks
+   BrandManage, CheckBox, BuyBooks,LoveSum
   }
 }
 </script>
