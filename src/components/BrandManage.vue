@@ -14,7 +14,7 @@
           <td>{{ obj.id }}</td>
           <td>{{ obj.name }}</td>
           <td :class="{ 'text-danger': obj.price > 100 }">{{ obj.price }}</td>
-          <td>{{ obj.time }}</td>
+          <td>{{ obj.time | getFormatTime }}</td>
           <td class="del" @click="del(obj.id)">删除</td>
         </tr>
       </tbody>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: "BrandManage",
   data() {
@@ -71,7 +72,7 @@ export default {
         id: this.list.length? this.list[this.list.length-1].id + 1:100,
         name: this.name,
         price:this.price,
-        time: new Date().toLocaleString()
+        time: new Date()
       })
       this.name=''
       this.price=0
@@ -87,6 +88,11 @@ export default {
       handler:function(){
         localStorage.setItem('goodsList',JSON.stringify(this.list))
       }
+    }
+  },
+  filters:{
+    getFormatTime(timestr){
+      return moment(timestr).format('YYYY-MM-DD')
     }
   }
 };
