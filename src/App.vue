@@ -6,6 +6,8 @@
   <CheckBox />
   <BuyBooks />
   <LoveSum />
+  <MobileNav />
+  
   </div>
 </template>
 
@@ -14,11 +16,12 @@ import BrandManage from './components/BrandManage.vue'
 import CheckBox from './components/CheckBox.vue'
 import BuyBooks from './components/BuyBooks.vue'
 import LoveSum from './components/LoveSum.vue'
+import MobileNav from './components/MobileNav.vue'
 
 export default {
   name: 'App',
   components: {
-   BrandManage, CheckBox, BuyBooks,LoveSum
+   BrandManage, CheckBox, BuyBooks,LoveSum,MobileNav
   }
 }
 </script>
