@@ -17,6 +17,10 @@
           <td>{{ obj.time | getFormatTime }}</td>
           <td class="del" @click="del(obj.id)">删除</td>
         </tr>
+        <tr style="text-align:center;background:#ccc;" v-show="list.length">
+          <td colspan="2">总价：{{totalPrice}}</td>
+          <td colspan="3">均价：{{avaPrice}}</td>
+        </tr>
       </tbody>
       <tfoot v-show="!list.length">
         <tr>
@@ -86,13 +90,24 @@ export default {
     list:{
       deep:true,
       handler:function(){
-        localStorage.setItem('goodsList',JSON.stringify(this.list))
+        localStorage.setItem('goodsList',JSON.stringify(this.list))  // 本地存数据
       }
     }
   },
   filters:{
+    // 格式化事件
     getFormatTime(timestr){
       return moment(timestr).format('YYYY-MM-DD')
+    }
+  },
+  computed: {
+    // 计算总价
+    totalPrice(){
+     return (this.list.reduce(function(sum,item){ return sum += item.price},0)).toFixed(2)
+    },
+    // 计算均价
+    avaPrice(){
+      return this.list.length===0?0:(this.totalPrice /this.list.length).toFixed(2)
     }
   }
 };
