@@ -2,16 +2,19 @@
   <div id="app">
    
    <BrandManage />
+   <hr>
+<CheckBox />
   </div>
 </template>
 
 <script>
 import BrandManage from './components/BrandManage.vue'
+import CheckBox from './components/CheckBox.vue'
 
 export default {
   name: 'App',
   components: {
-   BrandManage
+   BrandManage, CheckBox
   }
 }
 </script>
