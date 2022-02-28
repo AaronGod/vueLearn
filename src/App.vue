@@ -8,7 +8,9 @@
   <LoveSum />
   <MobileNav />
   <StudentManager />
-  
+  <hr>
+  <TodoList />
+
   </div>
 </template>
 
@@ -19,11 +21,12 @@ import BuyBooks from './components/BuyBooks.vue'
 import LoveSum from './components/LoveSum.vue'
 import MobileNav from './components/MobileNav.vue'
 import StudentManager from './components/StudentManager.vue'
+import TodoList from './components/TodoList.vue'
 
 export default {
   name: 'App',
   components: {
-   BrandManage, CheckBox, BuyBooks,LoveSum,MobileNav, StudentManager
+   BrandManage, CheckBox, BuyBooks,LoveSum,MobileNav, StudentManager,TodoList
   }
 }
 </script>
