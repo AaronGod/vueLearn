@@ -1,28 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <MyHeader title="购物车案例" bg="red" />
+    <div class="main">
+      <MyGoods :list="list" />
+    </div>
+    <MyFooter :arr="list" @changeAll="allFn" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import MyHeader from './components/MyHeader.vue'
+import MyGoods from './components/MyGoods.vue'
+import MyFooter from './components/MyFooter.vue'
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      list: []
+    }
+  },
+  components:{
+    MyHeader, MyGoods, MyFooter
+  },
+  created(){
+    // console.log(this.$axios)
+    this.$axios({
+      url: '/api/cart'
+    }).then(res=>{
+      //  console.log(res.data.list)
+      this.list = res.data.list
+    }).catch(e=>{
+      console.err(e)
+    })
+  },
+  methods:{
+    allFn(bool){
+      this.list.forEach(obj => obj.goods_state = bool)
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+body,html{
+  font-family: Arial, Helvetica, sans-serif;
 }
+  .main{
+    margin: 50px auto 50px;
+  }
 </style>
