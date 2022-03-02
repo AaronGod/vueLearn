@@ -10,7 +10,8 @@
   <StudentManager />
   <hr>
   <TodoList />
-
+  <hr>
+  <my-product />
   </div>
 </template>
 
@@ -22,11 +23,11 @@ import LoveSum from './components/LoveSum.vue'
 import MobileNav from './components/MobileNav.vue'
 import StudentManager from './components/StudentManager.vue'
 import TodoList from './components/TodoList.vue'
-
+import MyProduct from './components/eventBus/MyProduct.vue'
 export default {
   name: 'App',
   components: {
-   BrandManage, CheckBox, BuyBooks,LoveSum,MobileNav, StudentManager,TodoList
+   BrandManage, CheckBox, BuyBooks,LoveSum,MobileNav, StudentManager,TodoList, MyProduct
   }
 }
 </script>
