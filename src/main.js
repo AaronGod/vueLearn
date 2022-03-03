@@ -8,8 +8,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 // 引入页面组件
-import TabBar from '@/views/tabbar/index'
+import TabBar from '@/views/tabbar'
 import BuyCar from '@/views/BuyCard'
+import NotFound from '@/views/NotFound'
 
 
 
@@ -17,6 +18,14 @@ Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'https://www.escook.cn'
 Vue.prototype.$axios = axios
+
+// 定义全局指令
+Vue.directive('focus', {
+    // 当被绑定的元素插入到 DOM 中时……
+    inserted(el) {
+        el.focus()
+    }
+})
 
 // 使用vue-router
 Vue.use(VueRouter)
@@ -29,6 +38,10 @@ const routes = [{
     {
         path: '/tabbar',
         component: TabBar
+    },
+    {
+        path: '*',
+        component: NotFound
     }
 ]
 

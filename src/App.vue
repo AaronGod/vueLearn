@@ -25,7 +25,7 @@ export default {
         {
           id: 2,
           name: "Tabbar",
-          url: "/tabar",
+          url: "/tabbar",
         },
       ],
     };
