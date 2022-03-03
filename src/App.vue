@@ -1,50 +1,70 @@
 <template>
   <div>
-    <MyHeader title="购物车案例" bg="red" />
-    <div class="main">
-      <MyGoods :list="list" />
+    <div class="item">
+      <h5 class="text-center">项目列表</h5>
+      <ul class="item-list">
+        <li v-for="obj in caseList" :key="obj.id">
+          <router-link :to="obj.url">{{ obj.name }}</router-link>
+        </li>
+      </ul>
     </div>
-    <MyFooter :arr="list" @changeAll="allFn" />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import MyHeader from './components/MyHeader.vue'
-import MyGoods from './components/MyGoods.vue'
-import MyFooter from './components/MyFooter.vue'
 export default {
-  data(){
+  data() {
     return {
-      list: []
-    }
+      caseList: [
+        {
+          id: 1,
+          name: "购物车",
+          url: "/buycar",
+        },
+        {
+          id: 2,
+          name: "Tabbar",
+          url: "/tabar",
+        },
+      ],
+    };
   },
-  components:{
-    MyHeader, MyGoods, MyFooter
-  },
-  created(){
-    // console.log(this.$axios)
-    this.$axios({
-      url: '/api/cart'
-    }).then(res=>{
-      //  console.log(res.data.list)
-      this.list = res.data.list
-    }).catch(e=>{
-      console.err(e)
-    })
-  },
-  methods:{
-    allFn(bool){
-      this.list.forEach(obj => obj.goods_state = bool)
-    }
-  }
-}
+};
 </script>
 
-<style scoped>
-body,html{
-  font-family: Arial, Helvetica, sans-serif;
-}
-  .main{
-    margin: 50px auto 50px;
+<style lang="less" scoped>
+.item {
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  h5 {
+    font-size: 14px;
+    margin-top: 5px;
   }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 8px;
+    li {
+      // display: inline-block;
+      border: 1px solid #fff;
+      margin-right: 8px;
+      margin-bottom: 5px;
+      padding: 0 5px;
+      border-radius: 20px;
+      height: 24px;
+      line-height: 20px;
+      a {
+        font-size: 12px;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+}
 </style>
