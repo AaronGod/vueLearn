@@ -1,7 +1,11 @@
 <template>
   <div class="login-page">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-title" title="登录" />
+    <van-nav-bar class="page-nav-title" title="登录">
+      <template #left>
+        <van-icon class="icon" name="cross" @click="$router.back()" />
+      </template>
+    </van-nav-bar>
     <!-- 登录表单 -->
     <van-form @submit="onSubmit" ref="loginForm">
       <van-field v-model="user.mobile" name="mobile" placeholder="请输入手机号" :rules="userFormRules.mobile" type="number" maxlength="11">
@@ -100,15 +104,17 @@ export default {
       try {
         const res = await loginApi(this.user)
         this.$toast.success('登录成功')
-        console.log('登录成功', res)
+        // console.log('登录成功', res)
         // 存入token
         const { data } = res
         this.$store.commit('setUser', data.data)
+        // 跳转到之前页面
+        this.$router.back()
       } catch (error) {
         if (error.response.status === 400) {
           this.$toast.success('手机号或者验证码不正确')
         } else {
-          this.$totast.fail('登录失败')
+          this.$toast.fail('登录失败')
         }
       }
     }
