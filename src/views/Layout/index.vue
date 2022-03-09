@@ -1,6 +1,9 @@
 <template>
   <div class="layout-page">
-    <router-view></router-view>
+    <!-- 头部导航 -->
+    <div class="main">
+      <router-view></router-view>
+    </div>
     <!-- 底部导航 tabbar-->
     <van-tabbar route class="layout-tabbar">
       <van-tabbar-item to='/'>
@@ -44,6 +47,9 @@ export default {
 
 <style lang="less" scoped>
 .layout-page {
+  .main {
+    padding-bottom: 98px;
+  }
   .layout-tabbar {
     // box-sizing: border-box;
     height: 98px;

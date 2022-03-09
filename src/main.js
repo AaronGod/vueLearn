@@ -6,6 +6,7 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import './styles/index.less'
 import 'amfe-flexible' // 自动设置rem基准值
+import './utils/dayjs' // 引入dayjs
 
 Vue.use(Vant)
 Vue.config.productionTip = false
