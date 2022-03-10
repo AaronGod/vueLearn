@@ -19,40 +19,107 @@
       <!-- 因为固定定位  导致内容被遮挡了 所以增加一个占位符使其大小等于右侧按钮大小 -->
       <div slot="nav-left" class="placeholder"></div>
       <template #nav-right>
-        <div class="btn-hamburger">
+        <div class="btn-hamburger" @click="isChannelShow = true">
           <i class="toutiao toutiao-gengduo"></i>
         </div>
       </template>
     </van-tabs>
+    <!-- 弹出层 -->
+    <van-popup ref="channels_popup" v-model="isChannelShow" position="bottom" closeable close-icon-position="top-left" round :style="{ height: '100%' }">
+      <!-- 频道编辑 -->
+      <ChannelEdit :channels="channels" :activeIndex="active" @addItem="addMyChannel" @removeItem="removeChannel" @switchActive="changeHighlight" />
+    </van-popup>
   </div>
 </template>
 
 <script>
-import { getUserChannelsApi } from '@/api'
+import { getUserChannelsApi, addUserChannelsApi, delateUserChannelsApi } from '@/api'
 import ArticleList from '@/components/home/ArticleList.vue'
+import ChannelEdit from '@/components/home/ChannelEdit.vue'
+import { mapState } from 'vuex'
+import { setItem, getItem } from '@/utils/storage'
+
 export default {
   name: 'home-page',
   data () {
     return {
       active: 0,
-      channels: [] // 用户所有频道
+      channels: [], // 用户所有频道
+      isChannelShow: false // 弹出层显示状态
     }
   },
   components: {
-    ArticleList
+    ArticleList, ChannelEdit
   },
   created () {
     this.loadChannels()
   },
+  computed: {
+    ...mapState(['user'])
+  },
   methods: {
     async loadChannels () { // 获取频道数据
-      try {
-        const { data: { data: { channels } } } = await getUserChannelsApi()
-        // console.log(channels)
-        this.channels = channels
-      } catch (error) {
-        console.log('请求失败', error)
-        this.$toast('获取用户频道失败')
+      if (this.user) { // 登录状态
+        try {
+          const { data: { data: { channels } } } = await getUserChannelsApi()
+          // console.log(channels)
+          this.channels = channels
+        } catch (error) {
+          console.log('请求失败', error)
+          this.$toast('获取用户频道失败')
+        }
+      } else { // 未登录状态
+        let channel = getItem('TOUTIAO_CHANNELS')
+        if (!channel) {
+          // 请求获取默认频道
+          try { // 该接口不强制用户登录
+            const { data: { data: { channels } } } = await getUserChannelsApi()
+            channel = channels
+          } catch (error) {
+            console.log('请求失败', error)
+            this.$toast('获取用户频道失败')
+          }
+        }
+        this.channels = channel
+      }
+    },
+    // 增加频道
+    addMyChannel (channel) {
+      this.channels.push(channel)
+      // 数据持久化处理
+      // 未登录 把数据存到本地
+      // 已登录 把数据通过请求接口存到数据库
+      this.addChannelsData(channel) // 增加数据
+    },
+    removeChannel (channel) {
+      const index = this.channels.findIndex(c => { return c.id === channel.id })
+      this.channels.splice(index, 1)
+      this.deleteChannelsData(channel) // 删除数据
+    },
+    changeHighlight (indx, isChannelShow) { // 改变高亮索引
+      this.active = indx
+      this.isChannelShow = isChannelShow
+      // this.$refs.channels_popup.close()
+    },
+    async addChannelsData (channel) {
+      if (this.user) { // 已登录
+        try {
+          await addUserChannelsApi({
+            id: channel.id,
+            seq: this.channels.length
+          })
+        } catch (error) {
+          this.$toast('操作失败，请稍后再试')
+        }
+      } else {
+        setItem('TOUTIAO_CHANNELS', this.channels)
+      }
+    },
+    async deleteChannelsData (channel) {
+      if (this.user) {
+        await delateUserChannelsApi(channel.id)
+      } else {
+        setItem('TOUTIAO_CHANNELS', this.channels)
       }
     }
   }
