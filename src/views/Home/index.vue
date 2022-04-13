@@ -3,7 +3,7 @@
     <!-- 导航栏 -->
     <van-nav-bar class="page-nav-title" fixed>
       <template #title>
-        <van-button round class="btn-search" type="info" size="small">
+        <van-button round to="/search" class="btn-search" type="info" size="small">
           <template #icon>
             <van-icon class="search-icon" name="search" />
           </template>
